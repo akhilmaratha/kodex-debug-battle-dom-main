@@ -30,6 +30,7 @@ let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 let currentFilter = 'all';
 
 function addTransaction(e) {
+    e.preventDefault();
 
     const type = $('input[name="transaction-type"]:checked').value;
 
@@ -38,7 +39,7 @@ function addTransaction(e) {
     const transaction = {
         id: Math.floor(Math.random() * 100000000),
         text: text.value,
-        amount: amount.value,
+        amount: type === 'expense' ? -parseFloat(amount.value) : parseFloat(amount.value),
         type: type,
         category: category,
         date: new Date().toLocaleDateString()
